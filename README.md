@@ -35,6 +35,8 @@ Store links will be added here once the listings are approved:
 - **Chrome and Chromium-based browsers**: Chrome Web Store. Edge, Brave, Opera, Vivaldi and Thorium can
   install from the Chrome Web Store too.
 
+Manually (from a release zip or your own build)
+
 Download the latest files from the [Releases](../../releases) page.
 
 ### Chromium-based browsers (Chrome, Edge, Brave, Thorium, Opera)
