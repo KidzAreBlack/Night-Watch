@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    :root { --accent: #f5c451; --on-accent: #1a1a2e; --bg: #12142e; --surface: #1d2046; }
+    body.twitch  { --accent: #9146ff; --on-accent: #fff; --bg: #18181b; --surface: #26262c; }
+    body.youtube { --accent: #ff0033; --on-accent: #fff; --bg: #0f0f0f; --surface: #272727; }
+    *, *::before, *::after { caret-color: transparent; }
+    body {
+      width: 270px; margin: 0; padding: 16px;
+      font: 13px/1.4 system-ui, -apple-system, Segoe UI, sans-serif;
+      background: var(--bg); color: #efeff1; transition: background .2s;
+    }
+    [hidden] { display: none !important; }
+    header { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; }
+    header h1 { font-size: 14px; margin: 0; flex: 1; }
+    .icon-btn {
+      display: grid; place-items: center; width: 26px; height: 26px; padding: 0;
+      border: 0; border-radius: 6px; background: transparent; color: #adadb8; cursor: pointer;
+    }
+    .icon-btn:hover { background: var(--surface); color: #efeff1; }
+    .icon-btn.active { background: var(--surface); color: var(--accent); }
+    .icon-btn svg { width: 17px; height: 17px; }
+    .row { margin-bottom: 14px; }
+    .label { display: flex; justify-content: space-between; margin-bottom: 6px; color: #adadb8; }
+    #value { color: #efeff1; font-weight: 600; }
+    input[type=range] { width: 100%; accent-color: var(--accent); }
+    .seg { display: flex; background: var(--surface); border-radius: 6px; padding: 3px; }
+    .seg button {
+      flex: 1; border: 0; background: transparent; color: #adadb8;
+      padding: 6px 2px; border-radius: 4px; cursor: pointer; font: inherit; position: relative;
+    }
+    .seg button:disabled { opacity: .35; cursor: default; }
+    .seg button.active { background: var(--accent); color: var(--on-accent); }
+    .seg button.custom::after {
+      content: ""; position: absolute; top: 4px; right: 5px; width: 5px; height: 5px;
+      border-radius: 50%; background: var(--accent);
+    }
+    .seg button.active.custom::after { background: var(--on-accent); }
+    .presets { display: flex; gap: 6px; }
+    .presets button {
+      flex: 1; border: 1px solid #3a3a3d; background: var(--surface); color: #efeff1;
+      padding: 5px 0; border-radius: 4px; cursor: pointer; font: inherit;
+    }
+    .presets button:hover { border-color: var(--accent); }
+    .switch { position: relative; width: 36px; height: 20px; flex: none; }
+    .switch input { display: none; }
+    .slider { position: absolute; inset: 0; background: #3a3a3d; border-radius: 20px; cursor: pointer; transition: .15s; }
+    .slider::before { content: ""; position: absolute; width: 14px; height: 14px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .15s; }
+    .switch input:checked + .slider { background: var(--accent); }
+    .switch input:checked + .slider::before { transform: translateX(16px); }
+    .switch input:disabled + .slider { opacity: .4; cursor: default; }
+    .hint { color: #8a8a95; font-size: 11px; margin-top: 6px; }
+    .hint b { color: #efeff1; font-weight: 600; word-break: break-all; }
+    .link { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; font: inherit; text-decoration: underline; }
+    body.off .dim, body.unsupported .dim { opacity: .45; }
+    body.unsupported .dim { pointer-events: none; }
+    .divider { height: 1px; background: #ffffff14; margin: 0 0 14px; }
+    .note { background: var(--surface); border-radius: 6px; padding: 8px 10px; margin-bottom: 14px; color: #adadb8; font-size: 12px; }
+    .option { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .option .title { font-weight: 600; }
+    .badge {
+      font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 1px 5px; border-radius: 4px;
+      background: var(--accent); color: var(--on-accent); margin-left: 6px; vertical-align: 1px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Night Watch<span class="badge" id="devBadge" hidden>DEV</span></h1>
+    <button class="icon-btn" id="gear" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+    <label class="switch" title="On/Off">
+      <input type="checkbox" id="enabled" />
+      <span class="slider"></span>
+    </label>
+  </header>
+
+  <!-- Main view -->
+  <div id="mainView">
+    <div class="note" id="unsupportedNote" hidden>Open a Twitch or YouTube page to use Night Watch.</div>
+
+    <!-- Dev mode only: choose which level to change -->
+    <div id="scopeSection" hidden>
+      <div class="row">
+        <div class="label"><span>Setting for</span></div>
+        <div class="seg" id="scopes">
+          <button data-scope="page">This page</button>
+          <button data-scope="site">This site</button>
+          <button data-scope="all">All sites</button>
+        </div>
+        <div class="hint"><span id="scopeInfo"></span> <button class="link" id="reset" hidden>Reset</button></div>
+      </div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="row dim">
+      <div class="label"><span>Brightness</span><span id="value">70%</span></div>
+      <input type="range" id="brightness" min="5" max="100" step="1" />
+    </div>
+
+    <div class="row presets dim">
+      <button data-v="30">30%</button>
+      <button data-v="50">50%</button>
+      <button data-v="70">70%</button>
+      <button data-v="100">100%</button>
+    </div>
+
+    <div class="row dim" style="margin-bottom:0">
+      <div class="label"><span>Dim</span></div>
+      <div class="seg">
+        <button data-mode="video">Video only</button>
+        <button data-mode="page">Whole page</button>
+      </div>
+      <div class="hint">Shortcuts: Alt+Shift+↓ / ↑</div>
+    </div>
+  </div>
+
+  <!-- Settings view -->
+  <div id="settingsView" hidden>
+    <div class="option">
+      <div>
+        <div class="title">Dev mode</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="devMode" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="hint" id="devInfo"></div>
+  </div>
+
+  <script src="common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

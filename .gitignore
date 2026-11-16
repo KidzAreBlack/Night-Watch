@@ -1,0 +1,12 @@
+# Packaged builds (attach these to GitHub Releases instead)
+dist/
+*.zip
+*.xpi
+
+# OS / editor clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+__pycache__/

@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "Night Watch",
+  "version": "1.0.0",
+  "description": "Dim videos on Twitch and YouTube, or the whole page, with a simple slider.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.twitch.tv/*",
+    "*://*.youtube.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Night Watch",
+    "default_icon": {
+      "16": "icons/icon16-off.png",
+      "48": "icons/icon48-off.png",
+      "128": "icons/icon128-off.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.twitch.tv/*",
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "common.js",
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "commands": {
+    "dim-more": {
+      "suggested_key": {
+        "default": "Alt+Shift+Down"
+      },
+      "description": "Dim more (−10%)"
+    },
+    "dim-less": {
+      "suggested_key": {
+        "default": "Alt+Shift+Up"
+      },
+      "description": "Dim less (+10%)"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
