@@ -24,6 +24,9 @@ Works in Chromium-based browsers (Chrome, Edge, Brave, Thorium, Opera) and Firef
 - Works in fullscreen and when switching channels or videos
 - Keyboard shortcuts: `Alt+Shift+↓` dim more, `Alt+Shift+↑` dim less
 
+
+## Install
+
 ### From the stores
 
 Store links will be added here once the listings are approved:
@@ -31,8 +34,6 @@ Store links will be added here once the listings are approved:
 - **Firefox**: Firefox Add-ons (addons.mozilla.org). Needs Firefox 140 or newer (Firefox for Android 142+).
 - **Chrome and Chromium-based browsers**: Chrome Web Store. Edge, Brave, Opera, Vivaldi and Thorium can
   install from the Chrome Web Store too.
-
-## Install
 
 Download the latest files from the [Releases](../../releases) page.
 
