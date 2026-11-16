@@ -26,16 +26,27 @@ Works in Chromium-based browsers (Chrome, Edge, Brave, Thorium, Opera) and Firef
 
 ## Install
 
+### From the stores
+
+Store links will be added here once the listings are approved:
+
+- **Firefox**: Firefox Add-ons (addons.mozilla.org). Needs Firefox 140 or newer on desktop.
+- **Chrome and Chromium-based browsers**: Chrome Web Store. Brave, Vivaldi and Thorium can install
+  from it directly. Edge needs **Allow extensions from other stores** turned on first, and Opera
+  needs its **Install Chrome Extensions** add-on.
+
+### Manually (from a release zip or your own build)
+
 Download the latest files from the [Releases](../../releases) page.
 
-### Chromium-based browsers (Chrome, Edge, Brave, Thorium, Opera)
+#### Chromium-based browsers (Chrome, Edge, Brave, Thorium, Opera)
 1. Download `night-watch-chromium.zip` and unzip it.
 2. Go to `chrome://extensions` (Edge: `edge://extensions`).
 3. Turn on **Developer mode**.
 4. Click **Load unpacked** and pick the unzipped folder.
 5. Pin Night Watch to your toolbar.
 
-### Firefox (140 or newer)
+#### Firefox (140 or newer)
 - **Quick test:** go to `about:debugging#/runtime/this-firefox`, click **Load Temporary Add-on…**
   and pick `night-watch-firefox.xpi` (or `manifest.json` in the `Firefox` folder of the source).
   It's removed when Firefox closes.

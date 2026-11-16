@@ -22,7 +22,7 @@ DIST = ROOT / "dist"
 CODE = ["common.js", "content.js", "background.js", "popup.html", "popup.js"]
 
 FIREFOX_SETTINGS = {
-    "id": "night-watch@local",  # change this before submitting to addons.mozilla.org
+    "id": "night-watch@kidzareblack",  # permanent once published on addons.mozilla.org
     "strict_min_version": "140.0",
     "data_collection_permissions": {"required": ["none"]},
 }
